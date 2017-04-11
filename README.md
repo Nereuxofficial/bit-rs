@@ -1,5 +1,5 @@
 # Bit
-![crates.io version badge](https://img.shields.io/crates/v/bit.svg)
+[![crates.io version badge](https://img.shields.io/crates/v/bit.svg)](https://crates.io/crates/bit)
 
 `bit` is a library which provides some useful helpers for dealing with bits and
 bit ranges. For now it's just a rewrite of
