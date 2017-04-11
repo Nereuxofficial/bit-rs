@@ -1,0 +1,8 @@
+[package]
+name = "bit"
+version = "0.1.0"
+license = "MIT/Apache-2.0"
+description = "A library which provides helpers to manipulate bits and bit ranges."
+authors = ["José Miguel Sánchez García <jmi2k@openmailbox.org>"]
+
+[dependencies]
