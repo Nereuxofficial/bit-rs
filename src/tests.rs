@@ -40,9 +40,46 @@ fn bit_range() {
 
 #[test]
 #[should_panic]
-fn bit_range_panic() {
+fn bit_range_bounds_panic() {
     0u8.bit_range(5..9);
 }
+
+#[test]
+#[should_panic]
+fn bit_range_order_panic() {
+    0u8.bit_range(0..0);
+    0u8.bit_range(1..0);
+}
+
+#[test]
+fn bit_range_into_1() {
+    let val: u32 = 0b10101010u8.bit_range_into(0..3);
+    assert_eq!(val, 0b10);
+}
+
+/* TODO: Enable when `TryFrom` becomes stable
+#[test]
+fn bit_range_into_2() {
+    let val: u8 = 0b10101010u32.bit_range_into(4..8);
+    assert_eq!(val, 0b1010);
+}
+*/
+
+#[test]
+#[should_panic]
+#[allow(unused_variables)]
+fn bit_range_into_bounds_1_panic() {
+    let val: u32 = 0b10101010u8.bit_range_into(0..9);
+}
+
+/* TODO: Enable when `TryFrom` becomes stable
+#[test]
+#[should_panic]
+#[allow(unused_variables)]
+fn bit_range_into_bounds_2_panic() {
+    let val: u8 = 0b10101010u8.bit_range_into(0..9);
+}
+*/
 
 #[test]
 fn set_bit_range() {
@@ -60,4 +97,11 @@ fn set_bit_range_bounds_panic() {
 #[should_panic]
 fn set_bit_value_length_panic() {
     0u8.set_bit_range(5..9, 0b11111);
+}
+
+#[test]
+#[should_panic]
+fn set_bit_range_order_panic() {
+    0u8.set_bit_range(0..0, 0);
+    0u8.set_bit_range(1..0, 0);
 }

@@ -10,7 +10,7 @@ mod tests;
 use core::ops::Range;
 
 /// A trait which provides methods for manipulating bits or bit ranges.
-pub trait BitIndex {
+pub trait BitIndex: Sized {
     /// Length of the implementor type in bits.
     fn bit_length() -> usize;
 
@@ -33,6 +33,17 @@ pub trait BitIndex {
     ///  - Range `start` is equal or higher than `end`
     ///  - Range `end` is out of bounds, i.e: `pos.end > Self::bit_length()`
     fn bit_range(&self, pos: Range<usize>) -> Self;
+
+    /// Obtains the value of the bits inside the given range, being 0 the least
+    /// significant bit, converting it first to the given type.
+    ///
+    /// # Panics
+    ///
+    /// This method will panic if:
+    ///
+    ///  - Range `start` is equal or higher than `end`
+    ///  - Range `end` is out of bounds, i.e: `pos.end > Self::bit_length()`
+    fn bit_range_into<T>(&self, pos: Range<usize>) -> T where T: BitIndex + From<Self>;
 
     /// Sets the value of the bit at the given position, being 0 the least
     /// significant bit.
@@ -76,6 +87,14 @@ macro_rules! bitindex_num_impl {
                 assert!(pos.start < pos.end && pos.end <= len);
 
                 *self << len - pos.end >> len - pos.end + pos.start
+            }
+
+            #[inline]
+            fn bit_range_into<T>(&self, pos: Range<usize>) -> T where T: BitIndex + From<Self> {
+                let len = T::bit_length();
+                assert!(pos.start < pos.end && pos.end <= len);
+
+                T::from(self.bit_range(pos))
             }
 
             #[inline]
