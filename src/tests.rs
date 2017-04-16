@@ -58,6 +58,6 @@ fn set_bit_range_bounds_panic() {
 
 #[test]
 #[should_panic]
-fn set_bit_value_length_panic() {
+fn set_bit_range_value_length_panic() {
     0u8.set_bit_range(5..9, 0b11111);
 }
