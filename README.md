@@ -14,7 +14,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-bit = "0.1"
+bit = "0.1.1"
 ```
 
 And add to your code:
